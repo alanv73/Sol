@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,10 +83,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         Criteria criteria = new Criteria();
         String bestProvider = locationManager.getBestProvider(criteria, false);
-        Location location = locationManager.getLastKnownLocation(bestProvider);
+//        Location location = locationManager.getLastKnownLocation(bestProvider);
 
-//        Location location = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);//(locationManager.NETWORK_PROVIDER);
+        Location location = locationManager.getLastKnownLocation(bestProvider);//(locationManager.NETWORK_PROVIDER);
 //        locationManager.requestLocationUpdates(bestProvider,0,0,this);
+
+        LatLng userLocation = new LatLng(location.getLatitude(),location.getLongitude());
+        latitude = userLocation.latitude;
+        longitude = userLocation.longitude;
 
         if (location == null) {
             Toast.makeText(MainActivity.this, "NO GPS", Toast.LENGTH_LONG).show();
